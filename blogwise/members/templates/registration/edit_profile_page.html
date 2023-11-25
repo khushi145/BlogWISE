@@ -1,0 +1,31 @@
+
+    {%extends 'base.html'%}
+    {%block title%}Edit Profile Page{%endblock%}
+    {%block content%}
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="row ">
+        {% if user.is_authenticated%}
+            {%if user.id == profile.user.id%}
+            <div class=" align-items-center custom-view  bg-light py-2 px-5 mb-4 col-md-12">
+                <h3 class="my-5">Edit Profile Page</h3>
+                <div class="form-group">
+                <form method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    {{form.media}}
+                    {{form.as_p}}
+                    <button class="btn btn-secondary">UPDATE</button>
+                </form>
+                </div>
+                </div>
+                    
+            {%else%}
+                You are not allowed to edit the profile!!!
+            {%endif%}
+        {%else%}
+            You are not allowed to add a post!!!
+        {%endif%}
+    </div>
+</div>
+</div>
+    {%endblock%}

@@ -1,0 +1,20 @@
+
+    {%extends 'base.html'%}
+    {%block title%}Register{%endblock%}
+    {%block content%}
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="row ">
+                <div class=" align-items-center custom-view  bg-light py-2 px-5 mb-4 col-md-12">
+                <h3 class="my-5">Register</h3>
+                  <div class="form-group">
+   <form method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button class="btn btn-secondary">REGISTER</button>
+   </form>
+</div>
+</div>
+            </div>
+        </div>
+{%endblock%}

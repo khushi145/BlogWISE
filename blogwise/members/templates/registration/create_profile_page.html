@@ -1,0 +1,28 @@
+User Profile
+    {%extends 'base.html'%}
+    {%block title%}Create Profile Page{%endblock%}
+    {%block content%}
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="row ">
+                <div class=" align-items-center custom-view  bg-light py-2 px-5 mb-4 col-md-12">
+                
+        {% if user.is_authenticated%}
+            <h3 class="my-5">Create Profile Page</h3>
+            <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                {{form.media}}
+                {{form.as_p}}
+                <button class="btn btn-secondary">CREATE</button>
+            </form>
+            </div>
+            
+            {%else%}
+            You are not allowed to add a post!!!
+        {%endif%}
+                </div>
+            </div>
+    {%endblock%}
+</body>
+</html>

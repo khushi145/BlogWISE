@@ -1,0 +1,113 @@
+.sign{
+    border: 1px solid black;
+    border-radius: 30px;
+    padding:3px 12px !important;
+    margin:5px 5px;
+    font-size: 15px;height: 30px;
+    color: black;
+}
+.signb{
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    border-radius: 30px;
+    padding:3px 12px !important;
+    margin:5px 5px;
+    font-size: 15px;height: 30px;
+}
+
+.sign:hover{
+    color:white;
+    background-color: black;
+
+}
+.signb:hover{
+    color:black;
+    background-color: white;
+
+}
+
+.user{
+color: black;
+font-size: 15px;
+margin-left: -10px;
+padding: 0;
+
+}
+.desc{
+
+
+}
+.cat{
+    margin-top:-10px;
+}
+
+/* .cat-disc:hover .desc{
+    display: block !important;
+   
+} */ 
+
+.django-ckeditor-widget{
+    width: 100% !important;
+    overflow:scroll;
+}
+
+/* .custom-view{
+    padding: 20px 50px;
+} */
+
+.fixed{
+    top:0;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}
+
+@media only screen and (min-width: 1000px) {
+
+.fixed-sidebar{
+    top:100px;
+    right:100px;
+    position: fixed;
+
+}
+.mobile{
+    display: none;
+    float: right;
+    text-align: right;
+    margin-right: 10px !important; 
+}
+.desktop{
+    display: block !important;
+}
+.search{
+    max-width: 220px;
+}
+}
+.desktop{
+    display: none;
+}
+.mobile{
+    float: right !important;
+    text-align: right;
+    margin-left: auto  !important; 
+}
+
+.navbar-nav .nav-link{
+    font-weight: bold !important;
+
+}
+.navbar-nav .nav-link:hover{
+    color: black !important;
+    background-color: rgb(238, 238, 238) !important;
+}
+
+
+.dropdown-menu{
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.dropdown-menu a{
+   padding-left: 6px;
+}

@@ -1,0 +1,27 @@
+
+    {%extends 'base.html'%}
+    {%block title%}Login{%endblock%}
+    {%block content%}
+    <div class="container-fluid py-3">
+      <div class="container">
+          <div class="row ">
+              <div class=" align-items-center custom-view  bg-light py-2 px-5 mb-4 col-md-12">
+              <h3 class="my-5">Login</h3>
+                <div class="form-group">
+   <form method="POST">
+        {%csrf_token%}
+        <div class="form-group">  
+          <input type="text" class="form-control" name="username" placeholder="User Name">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <br>
+        <button class="btn btn-secondary">LOGIN</button><br><br>
+        <small>Not a User? <a href="{%url 'register' %}">REGISTER</a></small>
+    </form>
+    </div>
+              </div>
+          </div>
+      </div>
+{%endblock%}

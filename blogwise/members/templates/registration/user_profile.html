@@ -1,0 +1,110 @@
+
+    {%extends 'base.html'%}
+    {%load static%}
+
+    {%block content%}
+    <div class="container-fluid py-3">
+        <div class="container">
+            
+                <div class=" col-md-12 align-items-center custom-view  bg-light py-4  px-5 mb-2 col-md-4">
+                    <h3 class="my-3">Author Profile</h3> 
+                    <div class="col-md-2"></div> 
+                    <div class="card " style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                          <div class="d-flex text-black">
+                            <div class="flex-shrink-0">
+                                {%if page_user.profile_pic%}
+                                <img src="{{page_user.profile_pic.url}}"
+                                alt="Generic placeholder image" class="img-fluid"
+                                style="width: 180px; border-radius: 10px;">
+                                {%else%}
+                                {%load static%} <img src="{%static 'blog\img\acc.png'%}"
+                                alt="Generic placeholder image" class="img-fluid"
+                                style="width: 180px; border-radius: 10px;">
+                                {%endif%} 
+                            </div>
+                            <div class="flex-grow-1 m-2">
+                              <h3 class="mb-1" >{{page_user.user.first_name|title}} {{page_user.user.last_name|title}}</h3>
+                              <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                                style="background-color: #efefef;">
+                                <p>{{page_user.bio}}</p>
+                              </div>
+                              <!-- <p class="card-text"><small class="small text-muted">
+                                {%if page_user.linkedin_url%}
+                                    <a href="{{page_user.linkedin_url}}">LinkedIn</a>  
+                                {%endif%}
+                                {%if page_user.instagram_url%}
+                                    <a href="{{page_user.instagram_url}}">| Instagram</a> 
+                                {%endif%}
+                                {%if page_usertwitter_url%}
+                                    <a href="{{page_user.twitter_url}}">| Twitter</a>
+                                {%endif%}
+                                </small></p> -->
+                                <div class="pb-3">
+                                
+                                    <div class="d-flex mb-3">
+                                        {%if page_user.linkedin_url%}
+                                    <a href="{{page_user.linkedin_url}}" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2" style="background: #0185AE;">
+                                        <small class="fab fa-linkedin-in mr-2"></small><small>LinkedIn</small>
+                                    </a>
+                                        {%else%}
+                                    <a href="https://www.linkedin.com/" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2" style="background: #0185AE;">
+                                        <small class="fab fa-linkedin-in mr-2"></small><small>LinkedIn</small>
+                                    </a>
+                                        {%endif%}
+                                        {%if page_user.twitter_url%}
+                                        <a href="{{page_user.twitter_url}}" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2" style="background: #52AAF4;">
+                                            <small class="fab fa-twitter mr-2"></small><small>Twitter</small>
+                                        </a>
+                                        {%else%}
+                                        <a href="https://twitter.com/" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2" style="background: #52AAF4;">
+                                            <small class="fab fa-twitter mr-2"></small><small>Twitter</small>
+                                        </a>
+                                        {%endif%}
+                                    </div>   
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+         
+
+
+            
+            
+    <!-- News With Sidebar Start -->
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-between bg-light py-2 px-4 mb-3">
+                                <h3 class="m-0">Posts</h3>
+                                </div>
+                        </div>
+                        {%for post in posts%}
+                        {%if page_user.id == post.author.id %}
+                        <div class="col-lg-4">
+                            <div class="position-relative mb-3">
+                                <img class="img-fluid w-100" src="/media/{{post.header_img}}" style="object-fit: cover;">
+                                <div class="overlay position-relative bg-light">
+                                    <div class="mb-2" style="font-size: 14px;">
+                                        <a href="{% url 'category' post.category|slugify%}">{{post.category|title}}</a>
+                                        <span class="px-1">/</span>
+                                        <span>{{post.post_date}}</span>
+                                    </div>
+                                    <a class="h4" href="{% url 'article-detail' post.pk %}">{{ post.title }}</a>
+                                    <p class="m-0">{{post.snippet}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {%endif%}
+                        {%endfor%}
+                        
+                    </div>
+                </div>
+            
+    </div>
+{%endblock%}

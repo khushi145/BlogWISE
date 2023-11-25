@@ -1,0 +1,145 @@
+{%extends 'base.html'%}
+{% load static%}
+
+{%block content%}
+        
+
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="container">
+            <nav class="breadcrumb bg-transparent m-0 p-0">
+                <a class="breadcrumb-item" href="{%url 'home'%}">Home</a>
+                <a class="breadcrumb-item" href="{%url 'category-list'%}">Category</a>
+                <a class="breadcrumb-item" href="{%url 'category' post.category%}">{{post.category|title}}</a>
+                <span class="breadcrumb-item active">{{post.title}}</span>
+            </nav>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- News With Sidebar Start -->
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- News Detail Start -->
+                    <div class="position-relative mb-3">
+                        {% if user.is_authenticated%}
+                            {% if user.id == post.author.id %}
+                                
+                            <a href="{% url 'update_post' post.pk %}"><button class=" mb-2 btn btn-primary">Edit</button></a>
+                                
+                                <a href="{% url 'delete_post' post.pk %}"><button class=" mb-2 btn btn-primary">Delete</button></a></small>
+                            {%endif%}
+                        {%endif%}
+                        <img class="img-fluid w-100" src="/media/{{post.header_img}}" style="object-fit: cover;">
+                        <div class="overlay position-relative bg-light">
+                            <div class="mb-3">
+                                <a class="text-capitalize" href="{% url 'category' post.category|slugify%}">{{post.category}}</a>
+                                <span class="px-1">/</span>
+                                <span>{{post.post_date}}</span>
+                            </div>
+                            <div>
+                                <h3 class="mb-3">{{post.title}}</h3>
+                                {{post.body|safe}}
+                            </div>
+
+                            <form action="{%url 'like_post' post.pk%}" method="POST">
+                                {%csrf_token%}
+                                {% if user.is_authenticated%}
+                                {%if liked%}
+                                    <button type="submit", name="post_id", value="{{post.id}}",  class="btn btn-sm btn-outline-secondary" style="background-color: red; color: white;border-radius: 8px;">Like</button>
+                                {%else%}
+                                    <button type="submit", name="post_id", value="{{post.id}}",  class="btn btn-sm btn-outline-secondary" style="border-radius: 8px;">Like</button>
+                                {%endif%}
+                                {%else%} 
+                                    <a name="post_id", value="{{post.id}}", class="btn btn-sm btn-outline-secondary", href='{% url "login" %}'><i class="fa fa-thumbs-up"></i>&nbsp;Like</a>
+                                {%endif%} {{total_likes}}Likes
+                            </form>
+
+                           
+                            
+                        </div>
+                        
+                    </div>
+                    <!-- News Detail End -->
+
+                   
+                </div>
+
+                <div  class="col-lg-4 pt-3 pt-lg-0 sticky-side">
+                    <!-- Social Follow Start -->
+                    <div class="pb-3">
+                        <div class="bg-light py-2 px-4 mb-3">
+                            <h3 class="m-0">About Author</h3>
+                        
+                        <div class="d-flex my-2">
+                            {%if post.author.profile.profile_pic%}
+                           <img src="{{post.author.profile.profile_pic.url}}" style="width: 40px; height: 40px; object-fit: cover;border-radius: 50px;"> 
+                            {%else%}
+                            {%load static%} <img src="{%static 'blog\img\acc.png'%}" style="width: 40px; height: 40px; object-fit: cover;border-radius: 50px;">
+                            {%endif%}
+                            <div class=" align-items-center px-3 py-2">
+                                <p><a class="text-secondary font-weight-semi-bold" href="{%url 'show_profile' post.author.profile.id%}">{{post.author.first_name}} {{post.author.last_name}}</a></p>
+                                
+                            </div>
+                            
+                        </div>
+                        <p style="margin-top :-10px;">{{post.author.profile.bio}}</p>
+                    </div>
+                    </div>
+                    <!-- Social Follow End -->
+
+                    
+
+                    <!-- Popular News Start -->
+                    <div class="pb-3">
+                        <div class="bg-light py-2 px-4 mb-3">
+                            <h3 class="m-0">More on {{post.category|title}}</h3>
+                        </div>
+                        {% for p in posts %}
+                        {%if p.category|lower == post.category|lower and p.id != post.id %}
+                        <div class="d-flex mb-3">
+                            <img src="/media/{{p.header_img}}" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div class="w-100 d-flex flex-column justify-content-center bg-light px-3" style="height: 100px;">
+                                <div class="mb-1" style="font-size: 13px;">
+                                    <a href="">{{p.category|title}}</a>
+                                    <span class="px-1">/</span>
+                                    <span>{{p.post_date}}</span>
+                                </div>
+                                <a class="h6 m-0" href="{% url 'article-detail' p.pk %}">{{p.title}}</a>
+                            </div>
+                        </div>
+                        {%endif%}
+                        {% endfor %}
+                        
+                    </div>
+                    <!-- Popular News End -->
+
+                    <!-- Tags Start -->
+                    <div class="pb-3">
+                        <div class="bg-light py-2 px-4 mb-3">
+                            <h3 class="m-0">Categories</h3>
+                        </div>
+                        <div class="d-flex flex-wrap m-n1">
+                            {%for cat in cat_menu%}
+                            <a href="{% url 'category' cat|slugify%}" class="btn btn-sm btn-outline-secondary m-1">{{cat.name|upper}}</a>
+                          {%endfor%}
+                          </div>
+                    </div>
+                    <!-- Tags End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- News With Sidebar End -->
+
+
+
+
+
+            
+    {%endblock%}
